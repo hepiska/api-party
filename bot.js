@@ -26,21 +26,50 @@ ketik
 
 bot.onText(/\/cuaca/, function(message) {
 bot.sendMessage(message.chat.id,`halo mau liat cuaca dmn:
-/tanjung_tiggi,
 /manggar,
 /tanjung_pandan`);
+
 });
 
 
-bot.onText(/\/tanjung_tiggi/, function(message) {
-  //console.log(message);
-  weather.get_weather_custom('city', 'London', 'forecast').then(function(weather){
-    //console.log(weather);
+bot.onText(/\/tanjung_pandan/, function(message) {
+
+console.log('masuk');
+  weather.get_weather_custom('city','tanjungpandan' , 'forecast').then(function(weathers){
+    let todays=helper.getToday(weathers);
+    bot.sendMessage(message.chat.id,`today weather`)
+    todays.forEach(function(today){
+      console.log(today);
+      bot.sendMessage(message.chat.id,`${today.dt_txt} :
+${today.weather[0].description} ,
+temperatur : ${today.main.temp},
+wind speed : ${today.wind.speed}`)
+    })
 
   },function(error){
       console.log(error)
   })
-bot.sendMessage(message.chat.id,'halo');
+
+});
+
+bot.onText(/\/manggar/, function(message) {
+
+console.log('masuk');
+  weather.get_weather_custom('city','manggar' , 'forecast').then(function(weathers){
+    let todays=helper.getToday(weathers);
+    bot.sendMessage(message.chat.id,`today weather`)
+    todays.forEach(function(today){
+      console.log(today);
+      bot.sendMessage(message.chat.id,`${today.dt_txt} :
+${today.weather[0].description} ,
+temperatur : ${today.main.temp},
+wind speed : ${today.wind.speed}`)
+    })
+
+  },function(error){
+      console.log(error)
+  })
+
 });
 
 
